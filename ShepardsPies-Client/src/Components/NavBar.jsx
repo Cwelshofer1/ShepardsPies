@@ -50,6 +50,7 @@ return (
                 <Button color="primary">Login</Button>
             </NavLink>
             </NavItem>
+            <NavItem to= "/orders"> All Orders</NavItem>
         </Nav>
         )}
     </Navbar>
