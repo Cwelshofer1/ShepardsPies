@@ -9,6 +9,7 @@ using ShepardsPiesAPI.Models;
 using ShepardsPiesAPI.Models.DTOs;
 using ShepardsPiesAPI.Data;
 
+
 namespace ShepardsPiesAPI.Controllers;
 
 
@@ -16,10 +17,10 @@ namespace ShepardsPiesAPI.Controllers;
 [Route("api/[controller]")]
 public class AuthController : ControllerBase
 {
-    private ShepardsPiesAPIDbContext _dbContext;
+    private ShepardsPiesDbContext _dbContext;
     private UserManager<IdentityUser> _userManager;
 
-    public AuthController(ShepardsPiesAPIDbContext context, UserManager<IdentityUser> userManager)
+    public AuthController(ShepardsPiesDbContext context, UserManager<IdentityUser> userManager)
     {
         _dbContext = context;
         _userManager = userManager;
