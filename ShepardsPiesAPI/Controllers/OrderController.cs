@@ -4,6 +4,7 @@ using ShepardsPiesAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using ShepardsPiesAPI.Models;
 using ShepardsPiesAPI.Models.DTOs;
+using ShepardsPiesAPI.Modelo.DTOs;
 
 namespace ShepardsPies.Controllers;
 
@@ -26,4 +27,26 @@ public class OrderController : ControllerBase
         .Include(c => c.Customer);
         return Ok(orders);
     }
+
+    [HttpPost]
+public async Task<IActionResult> Post(OrderCreateDTO dto)
+{
+    var PostOrder = new Order
+    {
+        TableNumber = dto.TableNumber,
+        Customer = await _dbContext.Customers.FindAsync(dto.CustomerId),
+        TakenByEmployee = await _dbContext.Employees.FindAsync(dto.TakenByEmployeeId),
+        DeliveredByEmployee = dto.DeliveredByEmployeeId.HasValue
+            ? await _dbContext.Employees.FindAsync(dto.DeliveredByEmployeeId.Value)
+            : null,
+        TipAmount = dto.TipAmount,
+        TotalCost = dto.TotalCost
+    };
+
+    _dbContext.Orders.Add(PostOrder);
+    await _dbContext.SaveChangesAsync();
+
+    return Created($"/api/order/{PostOrder.Id}", dto);
+}
+
 }
