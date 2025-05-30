@@ -12,6 +12,7 @@ namespace ShepardsPiesAPI.Models;
         public decimal TotalCost { get; set; }
 
         public Customer Customer { get; set; }
+        // public Employee Employee { get; set; }
         public Employee TakenByEmployee { get; set; }
         public Employee DeliveredByEmployee { get; set; }
 

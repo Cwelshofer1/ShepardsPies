@@ -22,7 +22,8 @@ public class OrderController : ControllerBase
     // [Authorize]
     public IActionResult Get()
     {
-        var orders = _dbContext.Orders;
+        var orders = _dbContext.Orders
+        .Include(c => c.Customer);
         return Ok(orders);
     }
 }
