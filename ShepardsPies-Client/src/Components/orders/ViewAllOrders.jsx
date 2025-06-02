@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { GetOrders } from "../Managers/orderManager";
+import { GetOrders } from "../../Managers/orderManager";
+
 
 export const ViewAllOrders = (() => {
     const [Orders, SetOrders] = useState([]);
