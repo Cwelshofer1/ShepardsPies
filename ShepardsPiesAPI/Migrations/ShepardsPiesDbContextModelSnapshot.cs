@@ -147,13 +147,13 @@ namespace ShepardsPiesAPI.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4de9282d-8eb9-4ca0-83fc-c3974075fdfd",
+                            ConcurrencyStamp = "5d1b5c83-3875-4e0c-893b-300a58d29424",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEPC9ySl2ZGK7+Z7zPUn04CxYIjFNqdBIpNPpc3LQlPjBcFZB5P4PY1iGCPAlcYsvVQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFsNc+JtsrqMYANYpDFglkbqZFu01Oj9iVynv0VtyAr/bPU7HRo+xnBuhkeNv1WKqw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "96bd2ef0-1a52-4744-afa6-e4b8b3e27efe",
+                            SecurityStamp = "95d4b543-3622-48b0-8127-e530b69d047a",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });

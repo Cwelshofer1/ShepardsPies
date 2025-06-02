@@ -27,7 +27,12 @@ return (
         <>
             <NavbarToggler onClick={toggleNavbar} />
             <Collapse isOpen={open} navbar>
-            <Nav navbar></Nav>
+            <Nav navbar> 
+            <NavLink tag={RRNavLink} to= "/orders">
+            <Button color="primary">All Orders </Button> </NavLink>
+             <NavLink tag={RRNavLink} to= "/createorder">
+            <Button color="primary">Create Order </Button> </NavLink>
+            </Nav>
             </Collapse>
             <Button
             color="primary"
@@ -50,7 +55,10 @@ return (
                 <Button color="primary">Login</Button>
             </NavLink>
             </NavItem>
-            <NavItem to= "/orders"> All Orders</NavItem>
+            <NavItem>
+            <NavLink to= "/orders">
+            <Button color="primary">All Orders </Button> </NavLink>
+            </NavItem>
         </Nav>
         )}
     </Navbar>

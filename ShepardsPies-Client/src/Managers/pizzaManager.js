@@ -3,7 +3,9 @@
 const API_BASE = 'https://localhost:5001/api';
 
 export const getPizzaSizes = () => {
+  mode: 'no-cors'
   return fetch(`${API_BASE}/pizzasize`)
+  
     .then(res => res.json());
 };
 

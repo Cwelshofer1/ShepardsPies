@@ -49,4 +49,18 @@ public class OrderController : ControllerBase
         return Created($"/api/order/{PostOrder.Id}", dto);
     }
 
+    [HttpGet("{id}")]
+    [Authorize]
+    public IActionResult GetById(int id)
+    {
+        var orders = _dbContext.Orders;
+
+        if (orders == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(orders);
+    }
+
 }
