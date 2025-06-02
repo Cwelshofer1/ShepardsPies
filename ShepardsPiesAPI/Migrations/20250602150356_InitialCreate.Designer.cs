@@ -12,7 +12,7 @@ using ShepardsPiesAPI.Data;
 namespace ShepardsPiesAPI.Migrations
 {
     [DbContext(typeof(ShepardsPiesDbContext))]
-    [Migration("20250530191447_InitialCreate")]
+    [Migration("20250602150356_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -78,8 +78,6 @@ namespace ShepardsPiesAPI.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
                 });
@@ -152,13 +150,13 @@ namespace ShepardsPiesAPI.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8d50f2c6-5023-433a-abcd-ce09d3e1396e",
+                            ConcurrencyStamp = "4de9282d-8eb9-4ca0-83fc-c3974075fdfd",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAENIIGyTOY9TjLjMiYIiHmv3qUejywGDCDpuaMKDIFFSJTnSomfW5svvDJfB7Bu2KEA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPC9ySl2ZGK7+Z7zPUn04CxYIjFNqdBIpNPpc3LQlPjBcFZB5P4PY1iGCPAlcYsvVQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8cc49df8-dfe2-40a6-b930-1913a92f5f28",
+                            SecurityStamp = "96bd2ef0-1a52-4744-afa6-e4b8b3e27efe",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });
@@ -184,8 +182,6 @@ namespace ShepardsPiesAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("AspNetUserClaims", (string)null);
                 });
 
@@ -206,8 +202,6 @@ namespace ShepardsPiesAPI.Migrations
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("AspNetUserLogins", (string)null);
                 });
 
@@ -220,8 +214,6 @@ namespace ShepardsPiesAPI.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
 
@@ -382,12 +374,6 @@ namespace ShepardsPiesAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("DeliveredByEmployeeId");
-
-                    b.HasIndex("TakenByEmployeeId");
-
                     b.ToTable("Orders");
 
                     b.HasData(
@@ -426,14 +412,6 @@ namespace ShepardsPiesAPI.Migrations
                         .HasColumnType("numeric");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("PizzaCheeseId");
-
-                    b.HasIndex("PizzaSauceId");
-
-                    b.HasIndex("PizzaSizeId");
 
                     b.ToTable("Pizzas");
 
@@ -497,26 +475,32 @@ namespace ShepardsPiesAPI.Migrations
 
             modelBuilder.Entity("ShepardsPiesAPI.Models.PizzaTopping", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<int>("PizzaId")
                         .HasColumnType("integer");
 
                     b.Property<int>("ToppingId")
                         .HasColumnType("integer");
 
-                    b.HasKey("PizzaId", "ToppingId");
-
-                    b.HasIndex("ToppingId");
+                    b.HasKey("Id");
 
                     b.ToTable("PizzaTopping");
 
                     b.HasData(
                         new
                         {
+                            Id = 1,
                             PizzaId = 1,
                             ToppingId = 2
                         },
                         new
                         {
+                            Id = 2,
                             PizzaId = 1,
                             ToppingId = 3
                         });
@@ -656,8 +640,6 @@ namespace ShepardsPiesAPI.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdentityUserId");
 
                     b.ToTable("UserProfiles");
 
