@@ -14,3 +14,4 @@ return fetch(apiUrl, {
   body: JSON.stringify(order),
 }).then((res) => res.json());
 };
+

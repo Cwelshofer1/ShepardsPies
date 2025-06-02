@@ -1,4 +1,4 @@
-import { ViewAllOrders } from "./ViewAllOrders";
+import { ViewAllOrders } from "./orders/ViewAllOrders";
 import { Route, Routes } from "react-router-dom";
 import { AuthorizedRoute } from "./auth/AuthorizedRoute";
 import Register from "./auth/Register";
