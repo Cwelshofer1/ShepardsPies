@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { CreateOrder } from "../../Managers/orderManager";
+import { PizzaForm } from "../pizza/PizzaForm";
 
 export const CreateAnOrder = () => {
   const [order, setOrder] = useState({
@@ -11,5 +12,20 @@ export const CreateAnOrder = () => {
     totalCost: "",
   });
 
+
+  
+  useEffect(() => {})
+
+  return (
+    <>
+    <div>
+      <button>Add Pizza</button>
+    </div>
+    <PizzaForm></PizzaForm>
+    </>
+
+
+
+  )
   
 };

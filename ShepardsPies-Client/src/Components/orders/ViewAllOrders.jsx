@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
 import { GetOrders } from "../../Managers/orderManager";
+import { Navigate, useNavigate } from "react-router-dom";
+
+
 
 
 export const ViewAllOrders = (() => {
+    const navigate = useNavigate()
     const [Orders, SetOrders] = useState([]);
 
     const getAllOrders = () =>
@@ -13,6 +17,10 @@ export const ViewAllOrders = (() => {
     useEffect(() => {
         getAllOrders();
     }, []);
+
+const handleOrderCreate = (() => {
+    navigate("/createorder")
+})
 
 
 
@@ -28,6 +36,9 @@ return (
                     <div>{order?.deliveredByEmployeeId}</div>
                     <div>{order?.tipAmount}</div>
                     <div>{order?.totalCost}</div>
+                    <button
+                    onClick={handleOrderCreate}
+                    >Create Order</button>
                 </div>
             ))}
         </>
