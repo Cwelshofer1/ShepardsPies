@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using ShepardsPiesAPI.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System;
 
 namespace ShepardsPiesAPI.Data;
@@ -30,7 +31,7 @@ public class ShepardsPiesDbContext : IdentityDbContext<IdentityUser>
     {
         base.OnModelCreating(modelBuilder);
 
-      modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+        modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
         {
             Id = "c3aaeb97-d2ba-4a53-a521-4eea61e59b35",
             Name = "Admin",
@@ -59,9 +60,9 @@ public class ShepardsPiesDbContext : IdentityDbContext<IdentityUser>
             Address = "101 Main Street",
         });
 
-        // Composite PK for join table
+        // PK for join table
         modelBuilder.Entity<PizzaTopping>()
-         .HasKey(pt => new { pt.PizzaId, pt.ToppingId });
+         .HasKey(pt => new { pt.Id });
 
         // Employees
         modelBuilder.Entity<Employee>().HasData(
@@ -138,10 +139,17 @@ public class ShepardsPiesDbContext : IdentityDbContext<IdentityUser>
 
         // Pizza Toppings
         modelBuilder.Entity<PizzaTopping>().HasData(
-            new PizzaTopping { PizzaId = 1, ToppingId = 2 }, // Pepperoni
-            new PizzaTopping { PizzaId = 1, ToppingId = 3 }  // Mushroom
+            new PizzaTopping { Id = 1, PizzaId = 1, ToppingId = 2 }, // Pepperoni
+            new PizzaTopping { Id = 2, PizzaId = 1, ToppingId = 3 }  // Mushroom
         );
 
     }
+    
+ protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+    {
+        // This line tells EF Core to not automatically create indexes
+        configurationBuilder.Conventions.Remove(typeof(ForeignKeyIndexConvention));
+    }
+
 }
 

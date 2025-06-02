@@ -14,6 +14,5 @@ namespace ShepardsPiesAPI.Models.DTO;
         public PizzaSize PizzaSize { get; set; }
         public CheeseType PizzaCheese { get; set; }
         public SauceType PizzaSauce { get; set; }
-
         public List<PizzaTopping> PizzaToppings { get; set; }
     }

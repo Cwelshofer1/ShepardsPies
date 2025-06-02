@@ -344,12 +344,14 @@ namespace ShepardsPiesAPI.Migrations
                 name: "PizzaTopping",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     PizzaId = table.Column<int>(type: "integer", nullable: false),
                     ToppingId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PizzaTopping", x => new { x.PizzaId, x.ToppingId });
+                    table.PrimaryKey("PK_PizzaTopping", x => x.Id);
                     table.ForeignKey(
                         name: "FK_PizzaTopping_Pizzas_PizzaId",
                         column: x => x.PizzaId,
@@ -372,7 +374,7 @@ namespace ShepardsPiesAPI.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "8d50f2c6-5023-433a-abcd-ce09d3e1396e", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAENIIGyTOY9TjLjMiYIiHmv3qUejywGDCDpuaMKDIFFSJTnSomfW5svvDJfB7Bu2KEA==", null, false, "8cc49df8-dfe2-40a6-b930-1913a92f5f28", false, "Administrator" });
+                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "4de9282d-8eb9-4ca0-83fc-c3974075fdfd", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEPC9ySl2ZGK7+Z7zPUn04CxYIjFNqdBIpNPpc3LQlPjBcFZB5P4PY1iGCPAlcYsvVQ==", null, false, "96bd2ef0-1a52-4744-afa6-e4b8b3e27efe", false, "Administrator" });
 
             migrationBuilder.InsertData(
                 table: "CheeseTypes",
@@ -457,38 +459,18 @@ namespace ShepardsPiesAPI.Migrations
 
             migrationBuilder.InsertData(
                 table: "PizzaTopping",
-                columns: new[] { "PizzaId", "ToppingId" },
+                columns: new[] { "Id", "PizzaId", "ToppingId" },
                 values: new object[,]
                 {
-                    { 1, 2 },
-                    { 1, 3 }
+                    { 1, 1, 2 },
+                    { 2, 1, 3 }
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetRoleClaims_RoleId",
-                table: "AspNetRoleClaims",
-                column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserClaims_UserId",
-                table: "AspNetUserClaims",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserLogins_UserId",
-                table: "AspNetUserLogins",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserRoles_RoleId",
-                table: "AspNetUserRoles",
-                column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
@@ -500,51 +482,6 @@ namespace ShepardsPiesAPI.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_CustomerId",
-                table: "Orders",
-                column: "CustomerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_DeliveredByEmployeeId",
-                table: "Orders",
-                column: "DeliveredByEmployeeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_TakenByEmployeeId",
-                table: "Orders",
-                column: "TakenByEmployeeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Pizzas_OrderId",
-                table: "Pizzas",
-                column: "OrderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Pizzas_PizzaCheeseId",
-                table: "Pizzas",
-                column: "PizzaCheeseId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Pizzas_PizzaSauceId",
-                table: "Pizzas",
-                column: "PizzaSauceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Pizzas_PizzaSizeId",
-                table: "Pizzas",
-                column: "PizzaSizeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PizzaTopping_ToppingId",
-                table: "PizzaTopping",
-                column: "ToppingId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserProfiles_IdentityUserId",
-                table: "UserProfiles",
-                column: "IdentityUserId");
         }
 
         /// <inheritdoc />
