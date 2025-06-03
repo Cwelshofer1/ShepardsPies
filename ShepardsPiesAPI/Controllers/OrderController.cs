@@ -24,6 +24,7 @@ public class OrderController : ControllerBase
     public IActionResult Get()
     {
         var orders = _dbContext.Orders
+        .OrderBy(o => o.OrderDate)
         .Include(c => c.Customer);
         return Ok(orders);
     }
