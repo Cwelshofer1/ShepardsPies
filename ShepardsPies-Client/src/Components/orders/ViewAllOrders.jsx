@@ -38,7 +38,7 @@ return (
                     <div>{order?.totalCost}</div>
                     <button
                     onClick={handleOrderCreate}
-                    >Create Order</button>
+                    >Go to Create Order View</button>
                 </div>
             ))}
         </>

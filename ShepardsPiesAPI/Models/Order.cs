@@ -10,6 +10,7 @@ namespace ShepardsPiesAPI.Models;
         public int? DeliveredByEmployeeId { get; set; }
         public decimal TipAmount { get; set; }
         public decimal TotalCost { get; set; }
+        public DateTime OrderDate { get; set; }
 
         public Customer Customer { get; set; }
         // public Employee Employee { get; set; }

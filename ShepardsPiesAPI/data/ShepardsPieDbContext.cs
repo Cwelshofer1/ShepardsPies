@@ -85,7 +85,8 @@ public class ShepardsPiesDbContext : IdentityDbContext<IdentityUser>
                 TakenByEmployeeId = 1,
                 DeliveredByEmployeeId = null,
                 TipAmount = 4.00m,
-                TotalCost = 27.00m
+                TotalCost = 27.00m,
+                OrderDate = DateTime.UtcNow
             }
         );
 
