@@ -37,7 +37,7 @@ export const CreateAnOrder = () => {
 
   useEffect(() => {
     GetEmployees().then(setEmployees)
-  });
+  }, []);
 
   return (
     <>

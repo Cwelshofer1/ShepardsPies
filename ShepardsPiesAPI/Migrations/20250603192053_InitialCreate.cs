@@ -275,7 +275,8 @@ namespace ShepardsPiesAPI.Migrations
                     TakenByEmployeeId = table.Column<int>(type: "integer", nullable: false),
                     DeliveredByEmployeeId = table.Column<int>(type: "integer", nullable: true),
                     TipAmount = table.Column<decimal>(type: "numeric", nullable: false),
-                    TotalCost = table.Column<decimal>(type: "numeric", nullable: false)
+                    TotalCost = table.Column<decimal>(type: "numeric", nullable: false),
+                    OrderDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -374,7 +375,7 @@ namespace ShepardsPiesAPI.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "5d1b5c83-3875-4e0c-893b-300a58d29424", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEFsNc+JtsrqMYANYpDFglkbqZFu01Oj9iVynv0VtyAr/bPU7HRo+xnBuhkeNv1WKqw==", null, false, "95d4b543-3622-48b0-8127-e530b69d047a", false, "Administrator" });
+                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "0a113419-17f8-4bd8-aa66-2f662f24fb80", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEL31rL7sJbOmsm6wNh/RXpgs6iq/amSfnz4wlGqA2Lpca4aE2CGcYetVggKighNXUg==", null, false, "d2f9fac2-ff17-4c82-880c-0fe4401d8286", false, "Administrator" });
 
             migrationBuilder.InsertData(
                 table: "CheeseTypes",
@@ -444,8 +445,8 @@ namespace ShepardsPiesAPI.Migrations
 
             migrationBuilder.InsertData(
                 table: "Orders",
-                columns: new[] { "Id", "CustomerId", "DeliveredByEmployeeId", "TableNumber", "TakenByEmployeeId", "TipAmount", "TotalCost" },
-                values: new object[] { 1, 1, null, 12, 1, 4.00m, 27.00m });
+                columns: new[] { "Id", "CustomerId", "DeliveredByEmployeeId", "OrderDate", "TableNumber", "TakenByEmployeeId", "TipAmount", "TotalCost" },
+                values: new object[] { 1, 1, null, new DateTime(2025, 6, 3, 19, 20, 52, 281, DateTimeKind.Utc).AddTicks(4171), 12, 1, 4.00m, 27.00m });
 
             migrationBuilder.InsertData(
                 table: "UserProfiles",

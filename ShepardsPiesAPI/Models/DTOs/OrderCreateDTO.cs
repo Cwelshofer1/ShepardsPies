@@ -8,6 +8,6 @@ namespace ShepardsPiesAPI.Modelo.DTOs
         public int? DeliveredByEmployeeId { get; set; }
         public decimal TipAmount { get; set; }
         public decimal TotalCost { get; set; }
-        
+        public DateTime OrderDate { get; set; }
     }
 }
