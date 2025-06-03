@@ -147,13 +147,13 @@ namespace ShepardsPiesAPI.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5d1b5c83-3875-4e0c-893b-300a58d29424",
+                            ConcurrencyStamp = "0a113419-17f8-4bd8-aa66-2f662f24fb80",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEFsNc+JtsrqMYANYpDFglkbqZFu01Oj9iVynv0VtyAr/bPU7HRo+xnBuhkeNv1WKqw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEL31rL7sJbOmsm6wNh/RXpgs6iq/amSfnz4wlGqA2Lpca4aE2CGcYetVggKighNXUg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "95d4b543-3622-48b0-8127-e530b69d047a",
+                            SecurityStamp = "d2f9fac2-ff17-4c82-880c-0fe4401d8286",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });
@@ -357,6 +357,9 @@ namespace ShepardsPiesAPI.Migrations
                     b.Property<int?>("DeliveredByEmployeeId")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<int?>("TableNumber")
                         .HasColumnType("integer");
 
@@ -378,6 +381,7 @@ namespace ShepardsPiesAPI.Migrations
                         {
                             Id = 1,
                             CustomerId = 1,
+                            OrderDate = new DateTime(2025, 6, 3, 19, 20, 52, 281, DateTimeKind.Utc).AddTicks(4171),
                             TableNumber = 12,
                             TakenByEmployeeId = 1,
                             TipAmount = 4.00m,

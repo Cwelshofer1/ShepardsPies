@@ -41,7 +41,9 @@ public class OrderController : ControllerBase
                 ? await _dbContext.Employees.FindAsync(dto.DeliveredByEmployeeId.Value)
                 : null,
             TipAmount = dto.TipAmount,
-            TotalCost = dto.TotalCost
+            TotalCost = dto.TotalCost,
+            OrderDate = dto.OrderDate
+
         };
 
         _dbContext.Orders.Add(PostOrder);
