@@ -6,12 +6,12 @@ import { GetEmployees } from "../../Managers/employeeManager";
 
 export const CreateAnOrder = () => {
   const [order, setOrder] = useState({
-    customerId: "",
-    takenByEmployeeId: "",
-    deliveredByEmployeeId: "",
-    tableNumber: "",
-    tipAmount: "",
-    totalCost: "",
+    customerId: null,
+    takenByEmployeeId: null,
+    deliveredByEmployeeId: null,
+    tableNumber: null,
+    tipAmount: null,
+    totalCost: null
   });
   const [employees, setEmployees] = useState();
 
@@ -19,13 +19,13 @@ export const CreateAnOrder = () => {
 
 
   const handleSaveOrder = (order) => {
-    order.preventdefault();
+    order.preventDefault();
     if (order) {
       const newOrder = {
+        tableNumber: order.tableNumber,
         customerId: order.customerId,
         takenByEmployeeId: order.takenByEmployeeId,
         deliveredByEmployeeId: order.deliveredByEmployeeId,
-        tableNumber: order.tableNumber,
         tipAmount: order.tipAmount,
         totalCost: order.totalCost,
       };

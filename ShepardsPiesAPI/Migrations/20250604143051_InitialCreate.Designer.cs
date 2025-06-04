@@ -12,7 +12,7 @@ using ShepardsPiesAPI.Data;
 namespace ShepardsPiesAPI.Migrations
 {
     [DbContext(typeof(ShepardsPiesDbContext))]
-    [Migration("20250603192053_InitialCreate")]
+    [Migration("20250604143051_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -150,13 +150,13 @@ namespace ShepardsPiesAPI.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0a113419-17f8-4bd8-aa66-2f662f24fb80",
+                            ConcurrencyStamp = "6446f909-d441-4d10-a3d6-8e896525bd7a",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEL31rL7sJbOmsm6wNh/RXpgs6iq/amSfnz4wlGqA2Lpca4aE2CGcYetVggKighNXUg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKlcZPmXqNRl/Xf0tGhK9d2GpZe/p0gYuWJJpRT2qSyeIPbabzWcDpyPr5X/j/ROKA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d2f9fac2-ff17-4c82-880c-0fe4401d8286",
+                            SecurityStamp = "c43c0251-df1e-4c43-bb0b-5c612a868c00",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });
@@ -354,7 +354,7 @@ namespace ShepardsPiesAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CustomerId")
+                    b.Property<int?>("CustomerId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("DeliveredByEmployeeId")
@@ -366,13 +366,13 @@ namespace ShepardsPiesAPI.Migrations
                     b.Property<int?>("TableNumber")
                         .HasColumnType("integer");
 
-                    b.Property<int>("TakenByEmployeeId")
+                    b.Property<int?>("TakenByEmployeeId")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("TipAmount")
+                    b.Property<decimal?>("TipAmount")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal>("TotalCost")
+                    b.Property<decimal?>("TotalCost")
                         .HasColumnType("numeric");
 
                     b.HasKey("Id");
@@ -384,7 +384,7 @@ namespace ShepardsPiesAPI.Migrations
                         {
                             Id = 1,
                             CustomerId = 1,
-                            OrderDate = new DateTime(2025, 6, 3, 19, 20, 52, 281, DateTimeKind.Utc).AddTicks(4171),
+                            OrderDate = new DateTime(2025, 6, 4, 14, 30, 51, 294, DateTimeKind.Utc).AddTicks(3687),
                             TableNumber = 12,
                             TakenByEmployeeId = 1,
                             TipAmount = 4.00m,
@@ -713,9 +713,7 @@ namespace ShepardsPiesAPI.Migrations
                 {
                     b.HasOne("ShepardsPiesAPI.Models.Customer", "Customer")
                         .WithMany("Orders")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerId");
 
                     b.HasOne("ShepardsPiesAPI.Models.Employee", "DeliveredByEmployee")
                         .WithMany()
@@ -723,9 +721,7 @@ namespace ShepardsPiesAPI.Migrations
 
                     b.HasOne("ShepardsPiesAPI.Models.Employee", "TakenByEmployee")
                         .WithMany()
-                        .HasForeignKey("TakenByEmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TakenByEmployeeId");
 
                     b.Navigation("Customer");
 
