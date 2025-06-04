@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
+  createPizza,
   getCheeseTypes,
   getPizzaSizes,
   getSauceTypes,
   getToppings
 } from "../../Managers/pizzaManager";
+
 
 
 export const PizzaForm = () => {
@@ -18,6 +22,8 @@ export const PizzaForm = () => {
   const [selectedCheeseId, setSelectedCheeseId] = useState("");
 
   const [selectedToppingIds, setSelectedToppingIds] = useState([]);
+  
+  const navigate = useNavigate();
 
 
 
@@ -43,12 +49,34 @@ export const PizzaForm = () => {
     }
   };
 
+    const {orderId} = useParams();
+
+    const handleAddPizza = (pizza) => {
+    pizza.preventDefault();
+    if (pizza) {
+      const newPizza = {
+        orderId: orderId,
+        pizzaSizeId: selectedSizeId,
+        pizzaCheeseId: selectedCheeseId,
+        pizzaSauceId: selectedSauceId,
+        pizzaToppingsId: selectedToppingIds
+        
+      };
+      createPizza(newPizza).then(() => {
+        navigate("/orderdetails")
+      })
+    }
+  };
+
+  
+
   return (
     <>
       <div>
         <h3>
           Build Pizza
         </h3>
+        <h2>Order Number: {orderId} </h2>
 
         <div>
           <label>Pizza Size:</label>
@@ -106,10 +134,8 @@ export const PizzaForm = () => {
             </label>
           ))}
 
-
-
-
         </div>
+        <button onClick={handleAddPizza}>Add Pizza</button>
       </div>
     </>
   )

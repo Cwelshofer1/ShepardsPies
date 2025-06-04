@@ -30,10 +30,11 @@ public class OrderController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] OrderCreateDTO dto)
+    public async Task<IActionResult> Post([FromBody] OrderResultsDTO dto)
     {
         var PostOrder = new Order
         {
+            Id = dto.Id,
             TableNumber = dto.TableNumber,
             Customer = await _dbContext.Customers.FindAsync(dto.CustomerId),
             TakenByEmployee = await _dbContext.Employees.FindAsync(dto.TakenByEmployeeId),
@@ -42,9 +43,8 @@ public class OrderController : ControllerBase
                 : null,
             TipAmount = dto.TipAmount,
             TotalCost = dto.TotalCost,
-            
-             // ✅ Server controls the timestamp
-             OrderDate = DateTime.UtcNow
+
+            OrderDate = DateTime.UtcNow
 
         };
 
@@ -68,4 +68,27 @@ public class OrderController : ControllerBase
         return Ok(orders);
     }
 
+    [HttpPut("{id}")]
+
+    public IActionResult UpdateOrder(Order order, int id)
+    {
+         Order OrderToUpdate = _dbContext.Orders.SingleOrDefault(o => o.Id == id);
+        if (OrderToUpdate == null)
+        {
+            return NotFound();
+        }
+        else if (id != order.Id)
+        {
+            return BadRequest();
+        }
+
+        //These are the only properties that we want to make editable
+        OrderToUpdate.TakenByEmployeeId = order.TakenByEmployeeId;
+        OrderToUpdate.DeliveredByEmployeeId = order.DeliveredByEmployeeId;
+      
+
+        _dbContext.SaveChanges();
+
+        return NoContent();
+    }
 }
