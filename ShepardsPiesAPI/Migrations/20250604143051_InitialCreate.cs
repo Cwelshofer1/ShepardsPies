@@ -271,11 +271,11 @@ namespace ShepardsPiesAPI.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     TableNumber = table.Column<int>(type: "integer", nullable: true),
-                    CustomerId = table.Column<int>(type: "integer", nullable: false),
-                    TakenByEmployeeId = table.Column<int>(type: "integer", nullable: false),
+                    CustomerId = table.Column<int>(type: "integer", nullable: true),
+                    TakenByEmployeeId = table.Column<int>(type: "integer", nullable: true),
                     DeliveredByEmployeeId = table.Column<int>(type: "integer", nullable: true),
-                    TipAmount = table.Column<decimal>(type: "numeric", nullable: false),
-                    TotalCost = table.Column<decimal>(type: "numeric", nullable: false),
+                    TipAmount = table.Column<decimal>(type: "numeric", nullable: true),
+                    TotalCost = table.Column<decimal>(type: "numeric", nullable: true),
                     OrderDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
@@ -285,8 +285,7 @@ namespace ShepardsPiesAPI.Migrations
                         name: "FK_Orders_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Orders_Employees_DeliveredByEmployeeId",
                         column: x => x.DeliveredByEmployeeId,
@@ -296,8 +295,7 @@ namespace ShepardsPiesAPI.Migrations
                         name: "FK_Orders_Employees_TakenByEmployeeId",
                         column: x => x.TakenByEmployeeId,
                         principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -375,7 +373,7 @@ namespace ShepardsPiesAPI.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "0a113419-17f8-4bd8-aa66-2f662f24fb80", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEL31rL7sJbOmsm6wNh/RXpgs6iq/amSfnz4wlGqA2Lpca4aE2CGcYetVggKighNXUg==", null, false, "d2f9fac2-ff17-4c82-880c-0fe4401d8286", false, "Administrator" });
+                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "6446f909-d441-4d10-a3d6-8e896525bd7a", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEKlcZPmXqNRl/Xf0tGhK9d2GpZe/p0gYuWJJpRT2qSyeIPbabzWcDpyPr5X/j/ROKA==", null, false, "c43c0251-df1e-4c43-bb0b-5c612a868c00", false, "Administrator" });
 
             migrationBuilder.InsertData(
                 table: "CheeseTypes",
@@ -446,7 +444,7 @@ namespace ShepardsPiesAPI.Migrations
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "Id", "CustomerId", "DeliveredByEmployeeId", "OrderDate", "TableNumber", "TakenByEmployeeId", "TipAmount", "TotalCost" },
-                values: new object[] { 1, 1, null, new DateTime(2025, 6, 3, 19, 20, 52, 281, DateTimeKind.Utc).AddTicks(4171), 12, 1, 4.00m, 27.00m });
+                values: new object[] { 1, 1, null, new DateTime(2025, 6, 4, 14, 30, 51, 294, DateTimeKind.Utc).AddTicks(3687), 12, 1, 4.00m, 27.00m });
 
             migrationBuilder.InsertData(
                 table: "UserProfiles",

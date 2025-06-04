@@ -30,7 +30,7 @@ public class OrderController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(OrderCreateDTO dto)
+    public async Task<IActionResult> Post([FromBody] OrderCreateDTO dto)
     {
         var PostOrder = new Order
         {
@@ -42,7 +42,9 @@ public class OrderController : ControllerBase
                 : null,
             TipAmount = dto.TipAmount,
             TotalCost = dto.TotalCost,
-            OrderDate = dto.OrderDate
+            
+             // ✅ Server controls the timestamp
+             OrderDate = DateTime.UtcNow
 
         };
 
