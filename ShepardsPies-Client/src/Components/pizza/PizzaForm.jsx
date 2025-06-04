@@ -59,7 +59,7 @@ export const PizzaForm = () => {
         pizzaSizeId: selectedSizeId,
         pizzaCheeseId: selectedCheeseId,
         pizzaSauceId: selectedSauceId,
-        pizzaToppingsId: selectedToppingIds
+        ToppingIds: selectedToppingIds
         
       };
       createPizza(newPizza).then(() => {
