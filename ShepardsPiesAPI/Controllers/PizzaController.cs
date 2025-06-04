@@ -1,12 +1,8 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShepardsPiesAPI.Data;
 using Microsoft.EntityFrameworkCore;
+using ShepardsPiesAPI.Data;
 using ShepardsPiesAPI.Models;
-using ShepardsPiesAPI.Models.DTOs;
-using ShepardsPiesAPI.Modelo.DTOs;
 using ShepardsPiesAPI.Models.DTO;
-using System.CodeDom.Compiler;
 
 namespace ShepardsPies.Controllers;
 
@@ -24,26 +20,60 @@ public class PizzaController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Post(PizzaCreateDTO dto)
     {
-        var PostPizza = new Pizza
+        // 🍕 Get base price from PizzaSize
+        var pizzaSize = await _dbContext.PizzaSizes.FindAsync(dto.PizzaSizeId);
+        if (pizzaSize == null)
+        {
+            return BadRequest("Invalid PizzaSizeId.");
+        }
+
+        // 🍄 Get topping prices
+        decimal toppingTotal = 0;
+        var toppings = new List<Topping>();
+
+        if (dto.ToppingIds != null && dto.ToppingIds.Any())
+        {
+            toppings = await _dbContext.Toppings
+                .Where(t => dto.ToppingIds.Contains(t.Id))
+                .ToListAsync();
+
+            toppingTotal = toppings.Sum(t => t.ToppingPrice);
+        }
+
+        decimal totalPizzaPrice = pizzaSize.Price + toppingTotal;
+
+        // ➕ Create the pizza
+        var newPizza = new Pizza
         {
             OrderId = dto.OrderId,
             PizzaSizeId = dto.PizzaSizeId,
             PizzaCheeseId = dto.PizzaCheeseId,
             PizzaSauceId = dto.PizzaSauceId,
-            TotalPizzaPrice = dto.TotalPizzaPrice
+            TotalPizzaPrice = totalPizzaPrice
         };
 
-        _dbContext.Pizzas.Add(PostPizza);
+        _dbContext.Pizzas.Add(newPizza);
         await _dbContext.SaveChangesAsync();
 
-        return Created($"/api/pizza/{PostPizza.Id}", dto);
+        // ➕ Add PizzaTopping records
+        foreach (var toppingId in dto.ToppingIds)
+        {
+            _dbContext.PizzaTopping.Add(new PizzaTopping
+            {
+                PizzaId = newPizza.Id,
+                ToppingId = toppingId
+            });
+        }
+
+        await _dbContext.SaveChangesAsync();
+
+        return Created($"/api/pizza/{newPizza.Id}", new { id = newPizza.Id, price = totalPizzaPrice });
     }
 
     [HttpPut("{id}")]
-
     public IActionResult UpdatePizza(Pizza pizza, int id)
     {
-        Pizza PizzaToUpdate = _dbContext.Pizzas.SingleOrDefault(p => p.Id == id);
+        var PizzaToUpdate = _dbContext.Pizzas.SingleOrDefault(p => p.Id == id);
         if (PizzaToUpdate == null)
         {
             return NotFound();
@@ -53,18 +83,18 @@ public class PizzaController : ControllerBase
             return BadRequest();
         }
 
-        //These are the only properties that we want to make editable
+        // You might later add more updatable fields
         PizzaToUpdate.OrderId = pizza.OrderId;
-
 
         _dbContext.SaveChanges();
 
         return NoContent();
     }
-  [HttpGet]
+
+    [HttpGet]
     public IActionResult Get()
     {
-        var Pizzas = _dbContext.Pizzas;
-        return Ok(Pizzas);
+        var pizzas = _dbContext.Pizzas;
+        return Ok(pizzas);
     }
 }

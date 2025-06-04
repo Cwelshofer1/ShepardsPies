@@ -8,5 +8,6 @@ public class PizzaCreateDTO
     public int PizzaCheeseId { get; set; }
     public int PizzaSauceId { get; set; }
     public decimal TotalPizzaPrice { get; set; }
+    public List<int> ToppingIds { get; set; }
 
 }
