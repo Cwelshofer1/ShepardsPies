@@ -6,6 +6,7 @@ using ShepardsPiesAPI.Models;
 using ShepardsPiesAPI.Models.DTOs;
 using ShepardsPiesAPI.Modelo.DTOs;
 using ShepardsPiesAPI.Models.DTO;
+using System.CodeDom.Compiler;
 
 namespace ShepardsPies.Controllers;
 
@@ -37,5 +38,33 @@ public class PizzaController : ControllerBase
 
         return Created($"/api/pizza/{PostPizza.Id}", dto);
     }
-    
+
+    [HttpPut("{id}")]
+
+    public IActionResult UpdatePizza(Pizza pizza, int id)
+    {
+        Pizza PizzaToUpdate = _dbContext.Pizzas.SingleOrDefault(p => p.Id == id);
+        if (PizzaToUpdate == null)
+        {
+            return NotFound();
+        }
+        else if (id != pizza.Id)
+        {
+            return BadRequest();
+        }
+
+        //These are the only properties that we want to make editable
+        PizzaToUpdate.OrderId = pizza.OrderId;
+
+
+        _dbContext.SaveChanges();
+
+        return NoContent();
+    }
+  [HttpGet]
+    public IActionResult Get()
+    {
+        var Pizzas = _dbContext.Pizzas;
+        return Ok(Pizzas);
+    }
 }

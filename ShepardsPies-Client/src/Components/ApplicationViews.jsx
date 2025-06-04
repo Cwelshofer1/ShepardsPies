@@ -1,9 +1,10 @@
 import { ViewAllOrders } from "./orders/ViewAllOrders";
-import { Outlet, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { AuthorizedRoute } from "./auth/AuthorizedRoute";
 import { CreateAnOrder } from "./orders/CreateAnOrder";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
+import { OrderDetails } from "./orders/OrderDetails";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
@@ -15,8 +16,16 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
           <ViewAllOrders />
         </AuthorizedRoute>}></Route>
 
-        <Route index path="createorder" element={<AuthorizedRoute loggedInUser={loggedInUser}>
+        <Route path="createorder" element={<AuthorizedRoute loggedInUser={loggedInUser}>
           <CreateAnOrder />
+        </AuthorizedRoute>}></Route>
+
+        <Route path="createorder/:orderId" element={<AuthorizedRoute loggedInUser={loggedInUser}>
+          <CreateAnOrder />
+        </AuthorizedRoute>}></Route>
+
+           <Route path="orderdetails" element={<AuthorizedRoute loggedInUser={loggedInUser}>
+          <OrderDetails/>
         </AuthorizedRoute>}></Route>
 
       </Route>
