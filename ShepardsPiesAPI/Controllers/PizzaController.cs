@@ -27,7 +27,7 @@ public class PizzaController : ControllerBase
             return BadRequest("Invalid PizzaSizeId.");
         }
 
-        // 🍄 Get topping prices
+        //  Get topping prices
         decimal toppingTotal = 0;
         var toppings = new List<Topping>();
 
@@ -42,7 +42,7 @@ public class PizzaController : ControllerBase
 
         decimal totalPizzaPrice = pizzaSize.Price + toppingTotal;
 
-        // ➕ Create the pizza
+        // Create the pizza
         var newPizza = new Pizza
         {
             OrderId = dto.OrderId,
@@ -55,7 +55,7 @@ public class PizzaController : ControllerBase
         _dbContext.Pizzas.Add(newPizza);
         await _dbContext.SaveChangesAsync();
 
-        // ➕ Add PizzaTopping records
+        //  Add PizzaTopping records
         foreach (var toppingId in dto.ToppingIds)
         {
             _dbContext.PizzaTopping.Add(new PizzaTopping
@@ -67,7 +67,7 @@ public class PizzaController : ControllerBase
 
         await _dbContext.SaveChangesAsync();
 
-        return Created($"/api/pizza/{newPizza.Id}", new { id = newPizza.Id, price = totalPizzaPrice });
+        return Created($"/api/pizza/{newPizza.Id}", new { id = newPizza.Id, totalPrice = totalPizzaPrice });
     }
 
     [HttpPut("{id}")]
