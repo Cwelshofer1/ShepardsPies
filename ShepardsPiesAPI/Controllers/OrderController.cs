@@ -72,7 +72,7 @@ public class OrderController : ControllerBase
 
     public IActionResult UpdateOrder(Order order, int id)
     {
-         Order OrderToUpdate = _dbContext.Orders.SingleOrDefault(o => o.Id == id);
+        Order OrderToUpdate = _dbContext.Orders.SingleOrDefault(o => o.Id == id);
         if (OrderToUpdate == null)
         {
             return NotFound();
@@ -85,10 +85,32 @@ public class OrderController : ControllerBase
         //These are the only properties that we want to make editable
         OrderToUpdate.TakenByEmployeeId = order.TakenByEmployeeId;
         OrderToUpdate.DeliveredByEmployeeId = order.DeliveredByEmployeeId;
-      
+
 
         _dbContext.SaveChanges();
 
         return NoContent();
     }
+
+
+    
+[HttpPut("{id}/recalculate-total")]
+public async Task<IActionResult> RecalculateTotal(int id)
+{
+    var order = await _dbContext.Orders
+        .Include(o => o.Pizzas)
+        .FirstOrDefaultAsync(o => o.Id == id);
+
+    if (order == null) return NotFound();
+
+    decimal pizzaTotal = order.Pizzas.Sum(p => p.TotalPizzaPrice);
+    decimal tip = order.TipAmount ?? 0;
+    decimal deliveryFee = order.DeliveredByEmployeeId.HasValue ? 5.00m : 0.00m;
+
+    order.TotalCost = pizzaTotal + tip + deliveryFee;
+    await _dbContext.SaveChangesAsync();
+
+    return Ok(new { order.Id, order.TotalCost });
+}
+    
 }

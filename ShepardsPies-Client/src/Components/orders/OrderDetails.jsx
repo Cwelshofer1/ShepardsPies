@@ -26,7 +26,7 @@ export const OrderDetails = () => {
 
 const handleAddPizza = (orderId) => {
 
-    navigate(`/createorder/${orderId}`)
+    navigate(`/pizzaform/${orderId}`)
 }
 
     return (

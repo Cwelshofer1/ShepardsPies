@@ -373,7 +373,7 @@ namespace ShepardsPiesAPI.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "cdf42b92-e54f-4110-a520-10defc5db467", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEDPlOODwtQ37szmQj6qLP/wLzJ6l0AMJqC//inR3J7dSg65VUQoq3INmNp9FmspTag==", null, false, "bab546da-0ee9-43dd-9b00-e78a16b9c713", false, "Administrator" });
+                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "f92e2b2a-0077-4ffb-b4b0-7b507d607b7b", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAECjnoki0J4OYFBwkxtkLCWWNne4u7866NXoxl6ePlZaEQSWULe6un4ZzhliRIS/jKw==", null, false, "31c182f1-83e1-43f0-a747-a8cb25677f2d", false, "Administrator" });
 
             migrationBuilder.InsertData(
                 table: "CheeseTypes",
@@ -444,7 +444,7 @@ namespace ShepardsPiesAPI.Migrations
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "Id", "CustomerId", "DeliveredByEmployeeId", "OrderDate", "TableNumber", "TakenByEmployeeId", "TipAmount", "TotalCost" },
-                values: new object[] { 1, 1, null, new DateTime(2025, 6, 4, 20, 21, 0, 865, DateTimeKind.Utc).AddTicks(6016), 12, 1, 4.00m, 27.00m });
+                values: new object[] { 1, 1, null, new DateTime(2025, 6, 5, 16, 55, 5, 693, DateTimeKind.Utc).AddTicks(9815), 12, 1, 4.00m, 27.00m });
 
             migrationBuilder.InsertData(
                 table: "UserProfiles",

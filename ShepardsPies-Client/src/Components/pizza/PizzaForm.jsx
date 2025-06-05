@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { updateOrderCost } from "../../Managers/orderManager";
 import {
   createPizza,
   getCheeseTypes,
@@ -23,6 +24,7 @@ export const PizzaForm = () => {
 
   const [selectedToppingIds, setSelectedToppingIds] = useState([]);
   
+
   const navigate = useNavigate();
 
 
@@ -49,9 +51,10 @@ export const PizzaForm = () => {
     }
   };
 
-    const {orderId} = useParams();
+  const { orderId } = useParams();
+  const parseOrderId = parseInt(orderId);
 
-    const handleAddPizza = (pizza) => {
+  const handleAddPizza = (pizza) => {
     pizza.preventDefault();
     if (pizza) {
       const newPizza = {
@@ -59,16 +62,21 @@ export const PizzaForm = () => {
         pizzaSizeId: selectedSizeId,
         pizzaCheeseId: selectedCheeseId,
         pizzaSauceId: selectedSauceId,
-        ToppingIds: selectedToppingIds
-        
+        ToppingIds: selectedToppingIds,
+
       };
       createPizza(newPizza).then(() => {
-        navigate("/orderdetails")
+        navigate("/orderdetails");
+        updateOrderCost(parseOrderId).then((response) => {
+          console.log("New Total:", response.totalCost);
+
+        });
+
       })
     }
   };
 
-  
+
 
   return (
     <>

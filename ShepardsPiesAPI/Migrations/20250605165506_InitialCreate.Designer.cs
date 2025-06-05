@@ -12,7 +12,7 @@ using ShepardsPiesAPI.Data;
 namespace ShepardsPiesAPI.Migrations
 {
     [DbContext(typeof(ShepardsPiesDbContext))]
-    [Migration("20250604202101_InitialCreate")]
+    [Migration("20250605165506_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -150,13 +150,13 @@ namespace ShepardsPiesAPI.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cdf42b92-e54f-4110-a520-10defc5db467",
+                            ConcurrencyStamp = "f92e2b2a-0077-4ffb-b4b0-7b507d607b7b",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEDPlOODwtQ37szmQj6qLP/wLzJ6l0AMJqC//inR3J7dSg65VUQoq3INmNp9FmspTag==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECjnoki0J4OYFBwkxtkLCWWNne4u7866NXoxl6ePlZaEQSWULe6un4ZzhliRIS/jKw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "bab546da-0ee9-43dd-9b00-e78a16b9c713",
+                            SecurityStamp = "31c182f1-83e1-43f0-a747-a8cb25677f2d",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });
@@ -384,7 +384,7 @@ namespace ShepardsPiesAPI.Migrations
                         {
                             Id = 1,
                             CustomerId = 1,
-                            OrderDate = new DateTime(2025, 6, 4, 20, 21, 0, 865, DateTimeKind.Utc).AddTicks(6016),
+                            OrderDate = new DateTime(2025, 6, 5, 16, 55, 5, 693, DateTimeKind.Utc).AddTicks(9815),
                             TableNumber = 12,
                             TakenByEmployeeId = 1,
                             TipAmount = 4.00m,
