@@ -93,24 +93,37 @@ public class OrderController : ControllerBase
     }
 
 
+
+    [HttpPut("{id}/recalculate-total")]
+    public async Task<IActionResult> RecalculateTotal(int id)
+    {
+        var order = await _dbContext.Orders
+            .Include(o => o.Pizzas)
+            .FirstOrDefaultAsync(o => o.Id == id);
+
+        if (order == null) return NotFound();
+
+        decimal pizzaTotal = order.Pizzas.Sum(p => p.TotalPizzaPrice);
+        decimal tip = order.TipAmount ?? 0;
+        decimal deliveryFee = order.DeliveredByEmployeeId.HasValue ? 5.00m : 0.00m;
+
+        order.TotalCost = pizzaTotal + tip + deliveryFee;
+        await _dbContext.SaveChangesAsync();
+
+        return Ok(new { order.Id, order.TotalCost });
+    }
+
+    // [HttpDelete("{id}")]
     
-[HttpPut("{id}/recalculate-total")]
-public async Task<IActionResult> RecalculateTotal(int id)
-{
-    var order = await _dbContext.Orders
-        .Include(o => o.Pizzas)
-        .FirstOrDefaultAsync(o => o.Id == id);
+    // public IActionResult Delete(int id)
+    // {
+    //     var Order = _dbContext.Orders.SingleOrDefault(o => o.Id == id);
+    //     if (Order == null) return NotFound();
 
-    if (order == null) return NotFound();
+    //     _dbContext.Orders.Remove(Order);
+    //     _dbContext.SaveChanges();
+    //     return NoContent();
+    // }
 
-    decimal pizzaTotal = order.Pizzas.Sum(p => p.TotalPizzaPrice);
-    decimal tip = order.TipAmount ?? 0;
-    decimal deliveryFee = order.DeliveredByEmployeeId.HasValue ? 5.00m : 0.00m;
 
-    order.TotalCost = pizzaTotal + tip + deliveryFee;
-    await _dbContext.SaveChangesAsync();
-
-    return Ok(new { order.Id, order.TotalCost });
-}
-    
 }
