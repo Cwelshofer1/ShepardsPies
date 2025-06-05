@@ -24,3 +24,11 @@ export const updateOrderCost = (orderId) => {
     body: JSON.stringify(orderId),
   });
 };
+
+export const deleteOrder = (order) => {
+  return fetch(`${apiUrl}/${order.id}`,
+    {
+      method: "DELETE"
+    }
+  )
+}
