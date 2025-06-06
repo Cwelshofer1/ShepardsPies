@@ -38,6 +38,9 @@ return (
             <NavLink tag={RRNavLink} to= "/orderdetails">
             <Button color="secondary">Order Details </Button> </NavLink>
 
+            <NavLink tag={RRNavLink} to= "/pizzadetailsview">
+            <Button color="secondary">Pizza Details </Button> </NavLink>
+
             </Nav>
             </Collapse>
             <Button

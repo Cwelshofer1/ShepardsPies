@@ -26,7 +26,7 @@ export const updateOrderCost = (orderId) => {
 };
 
 export const deleteOrder = (order) => {
-  return fetch(`${apiUrl}/${order.id}`,
+  return fetch(`${apiUrl}/${order}`,
     {
       method: "DELETE"
     }

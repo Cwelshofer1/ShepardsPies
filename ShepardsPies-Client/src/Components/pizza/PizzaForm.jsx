@@ -54,7 +54,7 @@ export const PizzaForm = () => {
   const { orderId } = useParams();
   const parseOrderId = parseInt(orderId);
 
-  const handleAddPizza = (pizza) => {
+  const handleUpdatePizza = (pizza) => {
     pizza.preventDefault();
     if (pizza) {
       const newPizza = {
@@ -143,7 +143,7 @@ export const PizzaForm = () => {
           ))}
 
         </div>
-        <button onClick={handleAddPizza}>Add Pizza</button>
+        <button onClick={handleUpdatePizza}>Add Pizza</button>
       </div>
     </>
   )

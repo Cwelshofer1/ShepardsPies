@@ -6,6 +6,8 @@ import Register from "./auth/Register";
 import Login from "./auth/Login";
 import { OrderDetails } from "./orders/OrderDetails";
 import { PizzaForm } from "./pizza/PizzaForm"
+import { PizzaDetailsView } from "./pizza/PizzaDetailsView";
+import { UpdatePizza } from "./pizza/UpdatePizza";
 
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
@@ -32,6 +34,14 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
 
          <Route path="pizzaform" element={<AuthorizedRoute loggedInUser={loggedInUser}>
           <PizzaForm />
+        </AuthorizedRoute>}></Route>
+
+          <Route path="pizzadetailsview" element={<AuthorizedRoute loggedInUser={loggedInUser}>
+          <PizzaDetailsView />
+        </AuthorizedRoute>}></Route>
+
+         <Route path="pizzaupdateview/:pizzaId" element={<AuthorizedRoute loggedInUser={loggedInUser}>
+          <UpdatePizza />
         </AuthorizedRoute>}></Route>
 
       </Route>

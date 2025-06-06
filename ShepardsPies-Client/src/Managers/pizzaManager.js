@@ -46,3 +46,25 @@ export const createPizza = (pizzaDto) => {
     return res.json();
   });
 };
+
+export const deletePizza = (pizza) => {
+  return fetch(`${API_BASE}/pizza/${pizza}`,
+    {
+      method: "DELETE"
+    }
+  )
+}
+
+export const getPizzaById = (id) => {
+  return fetch(`${API_BASE}/pizza/${id}`).then((res) => res.json());
+};
+
+export const updatePizza = (pizza) => {
+  return fetch(`${API_BASE}/pizza/${pizza.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(pizza),
+  });
+};
