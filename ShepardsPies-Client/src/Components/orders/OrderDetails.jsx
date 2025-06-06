@@ -31,7 +31,7 @@ const handleAddPizza = (orderId) => {
 
     return (
         <>
-            <h2>All Orders</h2>
+            <h2>Order Details</h2>
             {orders.map((order) => (
                 <div key={order?.id}>
                     <h2>--Order Number {order.id}--</h2>

@@ -24,7 +24,7 @@ public class OrderController : ControllerBase
     public IActionResult Get()
     {
         var orders = _dbContext.Orders
-        .OrderBy(o => o.OrderDate)
+        .OrderByDescending(o => o.OrderDate)
         .Include(c => c.Customer);
         return Ok(orders);
     }
@@ -113,17 +113,17 @@ public class OrderController : ControllerBase
         return Ok(new { order.Id, order.TotalCost });
     }
 
-    // [HttpDelete("{id}")]
+    [HttpDelete("{id}")]
     
-    // public IActionResult Delete(int id)
-    // {
-    //     var Order = _dbContext.Orders.SingleOrDefault(o => o.Id == id);
-    //     if (Order == null) return NotFound();
+    public IActionResult Delete(int id)
+    {
+        var Order = _dbContext.Orders.SingleOrDefault(o => o.Id == id);
+        if (Order == null) return NotFound();
 
-    //     _dbContext.Orders.Remove(Order);
-    //     _dbContext.SaveChanges();
-    //     return NoContent();
-    // }
+        _dbContext.Orders.Remove(Order);
+        _dbContext.SaveChanges();
+        return NoContent();
+    }
 
 
 }

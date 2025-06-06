@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Npgsql.Internal;
 using ShepardsPiesAPI.Data;
 using ShepardsPiesAPI.Models;
 using ShepardsPiesAPI.Models.DTO;
@@ -94,7 +95,13 @@ public class PizzaController : ControllerBase
     [HttpGet]
     public IActionResult Get()
     {
-        var pizzas = _dbContext.Pizzas;
+        var pizzas = _dbContext.Pizzas
+        .Include(o => o.Order)
+        .Include(ps => ps.PizzaSize)
+        .Include(pc => pc.PizzaCheese)
+        .Include(psauce => psauce.PizzaSauce)
+        .Include(pt => pt.PizzaToppings)
+        .ThenInclude(t => t.Topping);
         return Ok(pizzas);
     }
 }
