@@ -72,22 +72,44 @@ public class PizzaController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public IActionResult UpdatePizza(Pizza pizza, int id)
+    public async Task<IActionResult> UpdatePizza(int id, PizzaCreateDTO dto)
     {
-        var PizzaToUpdate = _dbContext.Pizzas.SingleOrDefault(p => p.Id == id);
-        if (PizzaToUpdate == null)
+        var pizzaToUpdate = await _dbContext.Pizzas
+            .Include(p => p.PizzaToppings)
+            .FirstOrDefaultAsync(p => p.Id == id);
+
+        if (pizzaToUpdate == null)
         {
             return NotFound();
         }
-        else if (id != pizza.Id)
+
+        pizzaToUpdate.OrderId = dto.OrderId;
+        pizzaToUpdate.PizzaSizeId = dto.PizzaSizeId;
+        pizzaToUpdate.PizzaCheeseId = dto.PizzaCheeseId;
+        pizzaToUpdate.PizzaSauceId = dto.PizzaSauceId;
+
+        // Recalculate price
+        var size = await _dbContext.PizzaSizes.FindAsync(dto.PizzaSizeId);
+        var toppingEntities = await _dbContext.Toppings
+            .Where(t => dto.ToppingIds.Contains(t.Id))
+            .ToListAsync();
+
+        var toppingPrice = toppingEntities.Sum(t => t.ToppingPrice);
+        pizzaToUpdate.TotalPizzaPrice = size.Price + toppingPrice;
+
+        // Remove existing toppings and re-add
+        _dbContext.PizzaTopping.RemoveRange(pizzaToUpdate.PizzaToppings);
+
+        foreach (var toppingId in dto.ToppingIds)
         {
-            return BadRequest();
+            _dbContext.PizzaTopping.Add(new PizzaTopping
+            {
+                PizzaId = pizzaToUpdate.Id,
+                ToppingId = toppingId
+            });
         }
 
-        // You might later add more updatable fields
-        PizzaToUpdate.OrderId = pizza.OrderId;
-
-        _dbContext.SaveChanges();
+        await _dbContext.SaveChangesAsync();
 
         return NoContent();
     }
@@ -103,5 +125,46 @@ public class PizzaController : ControllerBase
         .Include(pt => pt.PizzaToppings)
         .ThenInclude(t => t.Topping);
         return Ok(pizzas);
+    }
+
+    [HttpDelete("{id}")]
+
+    public IActionResult Delete(int id)
+    {
+        var Pizza = _dbContext.Pizzas.SingleOrDefault(p => p.Id == id);
+        if (Pizza == null) return NotFound();
+
+        _dbContext.Pizzas.Remove(Pizza);
+        _dbContext.SaveChanges();
+        return NoContent();
+    }
+
+    [HttpGet("{id}")]
+    public IActionResult GetById(int id)
+    {
+        var pizza = _dbContext.Pizzas
+            .Include(p => p.PizzaSize)
+            .Include(p => p.PizzaCheese)
+            .Include(p => p.PizzaSauce)
+            .Include(p => p.PizzaToppings)
+                .ThenInclude(pt => pt.Topping)
+            .SingleOrDefault(p => p.Id == id);
+
+        if (pizza == null)
+        {
+            return NotFound();
+        }
+
+        var pizzaDto = new
+        {
+            pizza.Id,
+            pizza.OrderId,
+            pizza.PizzaSizeId,
+            pizza.PizzaCheeseId,
+            pizza.PizzaSauceId,
+            ToppingIds = pizza.PizzaToppings.Select(pt => pt.ToppingId).ToList()
+        };
+
+        return Ok(pizzaDto);
     }
 }

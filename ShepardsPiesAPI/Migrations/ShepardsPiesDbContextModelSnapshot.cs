@@ -147,13 +147,13 @@ namespace ShepardsPiesAPI.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a5d08657-340d-4e95-b613-628efedde5a5",
+                            ConcurrencyStamp = "7c5300d2-865d-4094-bda2-5728cdd69021",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEEGqEB9Y1CpjUCTmaHelIS7vOIRG9H/FD7nSguBE6zq7WCrWRSH7WxV4CdsCaj9sJw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAC9gMeIe4RCNUvWb8MI2yKHltN2nyiMyDLzpPjt+1/vkAhN47Xc3oGTzjWIY1za/g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ce7d85a0-c2f1-47b0-9e53-cdc8d518a479",
+                            SecurityStamp = "5b6785f5-b2aa-4f54-803e-aa6d596e63d2",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });
@@ -381,7 +381,7 @@ namespace ShepardsPiesAPI.Migrations
                         {
                             Id = 1,
                             CustomerId = 1,
-                            OrderDate = new DateTime(2025, 6, 6, 15, 56, 46, 127, DateTimeKind.Utc).AddTicks(7077),
+                            OrderDate = new DateTime(2025, 6, 6, 19, 28, 29, 517, DateTimeKind.Utc).AddTicks(4199),
                             TableNumber = 12,
                             TakenByEmployeeId = 1,
                             TipAmount = 4.00m,
